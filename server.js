@@ -82,6 +82,18 @@ app.post('/cards', (req, res, next) => {
     });
 });
 
+app.get('/cards', (req, res, next) => {
+    cards.find({
+
+        })
+        .exec((err, result) => {
+            if (err) return res.status(500).send(err);
+            res.status(200).json(result);
+            var data = result;
+
+            console.log(data); //test
+        })
+});
 
 app.listen(PORT, () => {
     console.log(`App Communicating on port: ${PORT}`)
