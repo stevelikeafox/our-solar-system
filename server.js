@@ -35,19 +35,43 @@ const usersCollection = new schema({
             type: String,
             required: true
         },
+        email: {
+            type: String,
+            required: true
+        },
+        cardPosition: {
+            type: Number,
+            required: true
+        },
     }
 });
 
 const cardsCollection = new schema({
     cards: {
         cardNum: {
-            type: String,
+            type: Number,
             required: true
         },
         fact: {
             type: String,
             required: true
         },
+        img: {
+            type: String,
+            required: true
+        },
+        video: {
+            type: String,
+            required: false
+        },
+        moreInfo: {
+            type: String,
+            required: false
+        },
+        animation: {
+            type: String,
+            required: false
+        }
     }
 });
 
@@ -82,6 +106,18 @@ app.post('/cards', (req, res, next) => {
     });
 });
 
+app.get('/cards', (req, res, next) => {
+    cards.find({
+
+    })
+        .exec((err, result) => {
+            if (err) return res.status(500).send(err);
+            res.status(200).json(result);
+            var data = result;
+
+            console.log(data); //test
+        })
+});
 
 app.listen(PORT, () => {
     console.log(`App Communicating on port: ${PORT}`)
