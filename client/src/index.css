@@ -8,6 +8,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.title{
+font-family: 'Orbitron', sans-serif;
+}
+
+.top{
+  margin: 0;
+}
+
+.cardContainer{
+  max-width: 50%;
+  
+}
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
