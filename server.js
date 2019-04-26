@@ -52,6 +52,10 @@ const cardsCollection = new schema({
             type: Number,
             required: true
         },
+        cardTitle: {
+            type: String,
+            required: true
+        },
         fact: {
             type: String,
             required: true
