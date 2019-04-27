@@ -26,56 +26,54 @@ dbConnection.then((db) => {
 
 const schema = mongoose.Schema;
 const usersCollection = new schema({
-    users: {
-        firstName: {
-            type: String,
-            required: true
-        },
-        lastName: {
-            type: String,
-            required: true
-        },
-        email: {
-            type: String,
-            required: true
-        },
-        cardPosition: {
-            type: Number,
-            required: true
-        },
-    }
+
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    cardPosition: {
+        type: Number,
+        required: true
+    },
 });
 
 const cardsCollection = new schema({
-    cards: {
-        cardNum: {
-            type: Number,
-            required: true
-        },
-        cardTitle: {
-            type: String,
-            required: true
-        },
-        fact: {
-            type: String,
-            required: true
-        },
-        img: {
-            type: String,
-            required: true
-        },
-        video: {
-            type: String,
-            required: false
-        },
-        moreInfo: {
-            type: String,
-            required: false
-        },
-        animation: {
-            type: String,
-            required: false
-        }
+
+    cardNum: {
+        type: Number,
+        required: true
+    },
+    cardTitle: {
+        type: String,
+        required: true
+    },
+    fact: {
+        type: String,
+        required: true
+    },
+    img: {
+        type: String,
+        required: true
+    },
+    video: {
+        type: String,
+        required: false
+    },
+    moreInfo: {
+        type: String,
+        required: false
+    },
+    animation: {
+        type: String,
+        required: false
     }
 });
 

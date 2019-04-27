@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Cards from '../jsx/cards';
 import NavBar from '../jsx/navbar';
-// import SolarSystemModel from '../jsx/solarSystemModel';
+import SolarSystemModel from '../jsx/solarSystemModel';
 
 it('cards render', () => {
   const div = document.createElement('div');
@@ -16,8 +16,8 @@ it('navbar renders', () => {
   ReactDOM.unmountComponentAtNode(nav);
 });
 
-// it('solar system model renders', () => {
-//   const model = document.createElement('model');
-//   ReactDOM.render(<SolarSystemModel />, model);
-//   ReactDOM.unmountComponentAtNode(model);
-// });
+it('solar system model renders', () => {
+  const model = document.createElement('model');
+  ReactDOM.render(<SolarSystemModel />, model);
+  ReactDOM.unmountComponentAtNode(model);
+});
