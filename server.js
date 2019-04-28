@@ -2,10 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const parser = require('body-parser');
+const cards = require('./server/models/cards');
+const users = require('./server/models/users');
+const questions = require('./server/models/questions');
 
 const app = express();
 const PORT = process.env.PORT || 4444;
-
 
 app.use(parser.json());
 app.use(parser.urlencoded({
@@ -24,71 +26,15 @@ dbConnection.then((db) => {
     console.log('Error database not connected', err);
 });
 
-const schema = mongoose.Schema;
-const usersCollection = new schema({
-
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    cardPosition: {
-        type: Number,
-        required: true
-    },
-});
-
-const cardsCollection = new schema({
-
-    cardNum: {
-        type: Number,
-        required: true
-    },
-    cardTitle: {
-        type: String,
-        required: true
-    },
-    fact: {
-        type: String,
-        required: true
-    },
-    img: {
-        type: String,
-        required: true
-    },
-    video: {
-        type: String,
-        required: false
-    },
-    moreInfo: {
-        type: String,
-        required: false
-    },
-    animation: {
-        type: String,
-        required: false
-    }
-});
-
-const users = mongoose.model('users', usersCollection);
-const cards = mongoose.model('cards', cardsCollection);
-
-console.log("working");
+// console.log("working");
 
 
 app.post('/users', (req, res, next) => {
     const postBody = req.body;
-    //   console.log('The Data:', postBody); // whoo whoo working now send to database
-    const newUser = new users(postBody); // body of req to musiccollection schema
+    //   console.log('The Data:', postBody);
+    const newUser = new users(postBody); // body of req
 
-    // now save it **Note to self type music correctly LOL :{
+    // now save
     newUser.save((err, result) => {
         if (err) return res.status(500).send(err);
         res.status(201).json(result);
@@ -98,10 +44,10 @@ app.post('/users', (req, res, next) => {
 
 app.post('/cards', (req, res, next) => {
     const postBody = req.body;
-    //   console.log('The Data:', postBody); // whoo whoo working now send to database
-    const newCard = new cards(postBody); // body of req to musiccollection schema
+    //   console.log('The Data:', postBody);
+    const newCard = new cards(postBody); // body of req
 
-    // now save it **Note to self type music correctly LOL :{
+    // now save
     newCard.save((err, result) => {
         if (err) return res.status(500).send(err);
         res.status(201).json(result);
@@ -120,6 +66,48 @@ app.get('/cards', (req, res, next) => {
             console.log(data); //test
         })
 });
+
+app.post('/questions', (req, res, next) => {
+    const postBody = req.body;
+    //   console.log('The Data:', postBody);
+    const newQuestion = new questions(postBody); // body of req
+
+    // now save
+    newQuestion.save((err, result) => {
+        if (err) return res.status(500).send(err);
+        res.status(201).json(result);
+    });
+});
+
+app.get('/questions', (req, res, next) => {
+    questions.find({
+
+    })
+        .exec((err, result) => {
+            if (err) return res.status(500).send(err);
+            res.status(200).json(result);
+            var data = result;
+
+            console.log(data); //test
+        })
+});
+
+
+
+app.get('/users/:id', (req, res) => {
+    var query = {};
+    var id = req.params.id;
+
+    if (id) {
+        query._id = id
+        console.log(query);
+    }
+    users.find(query).exec(function (err, users) {
+        if (err) return res.status(500).send(err);
+        res.status(200).json(users);
+    });
+});
+
 
 app.listen(PORT, () => {
     console.log(`App Communicating on port: ${PORT}`)

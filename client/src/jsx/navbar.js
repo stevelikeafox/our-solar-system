@@ -23,7 +23,7 @@ export class NavBar extends Component {
                             <li><a href="cards">Cards</a></li>
                             <li><a href="solarSystemModel">Solar System Model</a></li>
                             <li><a href="#">NASA</a></li>
-                            <li><a href="#">My Account</a></li>
+                            <li><a href="accountDetails">Account Details</a></li>
                             <li><a href="addCards">Add Cards</a></li>
                         </ul>
                     </div>
@@ -33,7 +33,7 @@ export class NavBar extends Component {
                     <li><a href="cards">Cards</a></li>
                     <li><a href="solarSystemModel">Solar System Model</a></li>
                     <li><a href="#">NASA</a></li>
-                    <li><a href="#">My Account</a></li>
+                    <li><a href="accountDetails">My Account</a></li>
                     <li><a href="addCards">Add Cards</a></li>
                 </ul>
             </div>

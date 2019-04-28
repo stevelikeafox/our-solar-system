@@ -49,10 +49,10 @@ export class AddCards extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state);
+        // console.log(this.state);
 
         let cards = (this.state);
-        console.log('Restult', cards);
+        //   console.log('Restult', cards);
         fetch('/cards', {
             method: 'POST',
             body: JSON.stringify(this.state),
@@ -63,12 +63,12 @@ export class AddCards extends React.Component {
         })
 
             .then(cards => {
-                //this.reset();
+
                 M.toast({
-                    html: "Band Saved!",
+                    html: "Card Saved!",
                     classes: "success"
                 });
-                //  reloadList();
+
             })
             .catch(err => {
                 // console.log(error);
@@ -87,78 +87,74 @@ export class AddCards extends React.Component {
 
             <div className="container">
 
-                <form className="form" onSubmit={this.handleSubmit}>
+                <div className="row">
 
-                    <label className="label">Card Number</label>
+                    <div className="col s10 offset-s1">
+                        <h1 className="headline">Add Cards</h1>
 
-                    <input
-                        className="input"
-                        type="text"
-                        name="cardNum"
-                        value={this.state.cardNum}
-                        onChange={this.handleChange}
-                    />
+                        <div className="card z-depth-3">
+                            <div className="user-content">
+                                <div className="addcardscontainer">
+                                    <form className="form" onSubmit={this.handleSubmit}>
 
+                                        <span className="title"> <label className="label">Card Number</label> </span>
 
+                                        <input
+                                            className="input"
+                                            type="text"
+                                            name="cardNum"
+                                            value={this.state.cardNum}
+                                            onChange={this.handleChange}
+                                        />
 
-                    <label className="label">Fact</label>
+                                        <span className="title"> <label className="label">Fact</label> </span>
 
-                    <input
-                        className="input"
-                        type="text"
-                        name="fact"
-                        value={this.state.fact}
-                        onChange={this.handleChange}
-                    />
-
-
-                    <label className="label">Card Title</label>
-
-                    <input
-                        className="input"
-                        type="text"
-                        name="cardTitle"
-                        value={this.state.cardTitle}
-                        onChange={this.handleChange}
-                    />
+                                        <input
+                                            className="input"
+                                            type="text"
+                                            name="fact"
+                                            value={this.state.fact}
+                                            onChange={this.handleChange}
+                                        />
 
 
+                                        <span className="title"> <label className="label">Card Title</label> </span>
 
-                    <label className="label">Image Link</label>
+                                        <input
+                                            className="input"
+                                            type="text"
+                                            name="cardTitle"
+                                            value={this.state.cardTitle}
+                                            onChange={this.handleChange}
+                                        />
 
-                    <input
-                        className="input"
-                        type="text"
-                        name="img"
-                        value={this.state.img}
-                        onChange={this.handleChange}
-                    />
+                                        <span className="title"> <label className="label">Image Link</label> </span>
 
+                                        <input
+                                            className="input"
+                                            type="text"
+                                            name="img"
+                                            value={this.state.img}
+                                            onChange={this.handleChange}
+                                        />
 
+                                        <span className="title"> <label className="label">More Infomation</label> </span>
 
-                    <label className="label">More Infomation</label>
+                                        <textarea
+                                            className="textarea"
+                                            name="moreInfo"
+                                            value={this.state.moreInfo}
+                                            onChange={this.handleChange}
+                                        />
 
-                    <textarea
-                        className="textarea"
-                        name="moreInfo"
-                        value={this.state.moreInfo}
-                        onChange={this.handleChange}
-                    />
+                                        <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+    <i className="material-icons right">send</i>
+                                        </button>
 
+                                    </form>
 
-
-
-
-                    <input
-                        type="submit"
-                        value="Submit"
-                        className="button is-primary"
-                    />
-
-                </form>
-
-            </div>
-
+                                </div>
+                            </div></div></div></div></div>
         );
     }
 }
