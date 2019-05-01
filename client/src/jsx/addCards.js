@@ -14,7 +14,7 @@ import '../css/cards.css';
 
 
 
-export class AddCards extends React.Component {
+export class AddCards extends Component {
 
     componentDidMount() {
 
@@ -51,7 +51,6 @@ export class AddCards extends React.Component {
         event.preventDefault();
         // console.log(this.state);
 
-        let cards = (this.state);
         //   console.log('Restult', cards);
         fetch('/cards', {
             method: 'POST',

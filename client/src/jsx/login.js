@@ -6,7 +6,7 @@ import '../css/cards.css';
 
 
 
-export class Signup extends Component {
+export class Login extends Component {
 
 
     // needs to go into constructor
@@ -30,9 +30,8 @@ export class Signup extends Component {
 
     handleChange(event) {
         const target = event.target;
-        const value = target.value;
         const name = target.name;
-
+        const value = target.value;
         this.setState({
             [name]: value
         });
@@ -40,15 +39,14 @@ export class Signup extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state);
+        // console.log(this.state);
 
-        //   console.log('Restult', cards);
-        fetch('/api/users', {
+        fetch('/api/users/login', {
             method: 'POST',
             body: JSON.stringify(this.state),
             headers: {
                 "Content-Type": "application/json",
-
+                "Authorization": "Token"
             }
         })
 
@@ -80,7 +78,7 @@ export class Signup extends Component {
                 <div className="row">
 
                     <div className="col s10 offset-s1">
-                        <h1 className="headline">Sign Up</h1>
+                        <h1 className="headline">Login</h1>
 
                         <div className="card z-depth-3">
                             <div className="user-content">
@@ -101,7 +99,7 @@ export class Signup extends Component {
 
                                         <input
                                             className="input"
-                                            type="text"
+                                            type="password"
                                             name="password"
 
                                             onChange={this.handleChange}
@@ -119,4 +117,4 @@ export class Signup extends Component {
     }
 }
 
-export default Signup;
+export default Login;

@@ -35,7 +35,6 @@ export class SolarSystemModel extends Component {
         let planets = [];
         let textures = [];
         let rotations = [];
-        let model = [];
 
         function genPlanets(diameter, texture, rotationSpeed) {
 
