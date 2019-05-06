@@ -46,17 +46,12 @@ export class Login extends Component {
             body: JSON.stringify(this.state),
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Token"
             }
         })
 
-            .then(users => {
-
-                M.toast({
-                    html: "User Saved!",
-                    classes: "success"
-                });
-
+            .then(response => {
+                console.log(response.headers.get('Content-Type'))
+                console.log(response);
             })
             .catch(err => {
                 // console.log(error);

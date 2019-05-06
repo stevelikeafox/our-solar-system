@@ -14,7 +14,7 @@
   margin-top: 10px;
 }
 
-#editButton {
+.editButton {
   float: right;
   margin-top: 10px;
   display: inline-block;

@@ -66,8 +66,12 @@ export class AddCards extends Component {
                 M.toast({
                     html: "Card Saved!",
                     classes: "success"
+
                 });
 
+            })
+            .then(() => {
+                this.props.history.push('/cards')
             })
             .catch(err => {
                 // console.log(error);
@@ -77,10 +81,10 @@ export class AddCards extends Component {
                 });
             });
 
-
     }
 
     render() {
+
         return (
 
 
@@ -146,7 +150,7 @@ export class AddCards extends Component {
                                             onChange={this.handleChange}
                                         />
 
-                                        <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                                        <button className="btn waves-effect waves-light blue" type="submit" name="action">Submit
     <i className="material-icons right">send</i>
                                         </button>
 

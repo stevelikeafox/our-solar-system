@@ -57,8 +57,15 @@ p{
 
 .collection{
   border: none;
+padding: 10px;
 }
 
 .addcardscontainer{
   padding: 30px;
+}
+
+
+textarea {
+  height: 150px;
+  resize: none;
 }

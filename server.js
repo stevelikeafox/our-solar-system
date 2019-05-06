@@ -1,83 +1,56 @@
 require('dotenv').config();
+
+
 const express = require('express');
-const mongoose = require('mongoose');
-const parser = require('body-parser');
-const PORT = process.env.PORT || 4444;
-const session = require('express-session');
-const cors = require('cors');
-
-//Configure mongoose's promise to global promise
-mongoose.Promise = global.Promise;
-
-
-
-
-//Initiate our app
 const app = express();
+const mongoose = require('mongoose');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 
-//Configure our app
-app.use(cors());
-app.use(require('morgan')('dev'));
-app.use(parser.json());
-app.use(parser.urlencoded({
-    extended: false
-}));
-app.use(express.static('public'));
-app.use(session({ secret: 'passport-tutorial', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
+const {
+    MONGODB_URI,
+    PORT,
+} = process.env;
 
 
-//Configure Mongoose
 
-const dbConnection = mongoose.connect('mongodb://localhost/our-solar-system', {
-    useNewUrlParser: true
-});
-mongoose.set('debug', true);
-
-dbConnection.then((db) => {
-    console.log('Database Connected');
-}).catch((err) => {
-    console.log('Error database not connected', err);
+mongoose.promise = global.Promise
+const promise = mongoose.connect(MONGODB_URI, { useNewUrlParser: true }); // connect to our database
+promise.then(function (db) {
+    console.log('DATABASE CONNECTED!!');
+}).catch(function (err) {
+    console.log('CONNECTION ERROR', err);
 });
 
-
-// Models and Routes ////
+app.use(morgan('dev'));
+app.use(bodyParser());
 
 const cards = require('./server/models/cards');
 const users = require('./server/models/users');
 const questions = require('./server/models/questions');
 
 
-require('./server/config/passport');
-app.use(require('./server/routes'));
-
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////   API ROUTES   ////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-
-app.post('/users', (req, res, next) => {
+app.post('/cards', (req, res, next) => {
     const postBody = req.body;
-    console.log('The Data:', postBody);
-    const newUser = new users(postBody); // body of req
+    const newCard = new cards(postBody);
 
-    // now save
-    newUser.save((err, result) => {
+
+    newCard.save((err, result) => {
         if (err) return res.status(500).send(err);
         res.status(201).json(result);
     });
 });
 
-
-app.post('/cards', (req, res, next) => {
-    const postBody = req.body;
-    //   console.log('The Data:', postBody);
-    const newCard = new cards(postBody); // body of req
-
-    // now save
-    newCard.save((err, result) => {
+app.put('/cards/:cardid', (req, res, next) => {
+    const updateCard = req.params.cardid;
+    console.log(updateCard);
+    cards.update({
+        _id: updateCard,
+    }, req.body, function (err, resp) {
         if (err) return res.status(500).send(err);
-        res.status(201).json(result);
-    });
+        res.sendStatus(200);
+    })
 });
 
 app.get('/cards', (req, res, next) => {
@@ -89,34 +62,21 @@ app.get('/cards', (req, res, next) => {
             res.status(200).json(result);
             var data = result;
 
-            console.log(data); //test
         })
 });
 
-app.post('/questions', (req, res, next) => {
+app.post('/users', (req, res, next) => {
     const postBody = req.body;
-    //   console.log('The Data:', postBody);
-    const newQuestion = new questions(postBody); // body of req
+    console.log('The Data:', postBody);
+    const newUser = new users(postBody);
 
-    // now save
-    newQuestion.save((err, result) => {
+
+    newUser.save((err, result) => {
         if (err) return res.status(500).send(err);
         res.status(201).json(result);
     });
 });
 
-app.get('/questions', (req, res, next) => {
-    questions.find({
-
-    })
-        .exec((err, result) => {
-            if (err) return res.status(500).send(err);
-            res.status(200).json(result);
-            var data = result;
-
-            console.log(data); //test
-        })
-});
 
 app.get('/users/:id', (req, res) => {
     var query = {};
@@ -124,7 +84,7 @@ app.get('/users/:id', (req, res) => {
 
     if (id) {
         query._id = id
-        //console.log(query);
+
     }
     users.find(query).exec(function (err, users) {
         if (err) return res.status(500).send(err);
@@ -132,11 +92,33 @@ app.get('/users/:id', (req, res) => {
     });
 });
 
-/////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////
 
-
-app.listen(PORT, () => {
-    console.log(`App Communicating on port: ${PORT}`)
+app.put('/users/:userid', (req, res, next) => {
+    const updateUser = req.params.userid;
+    console.log(updateUser);
+    users.update({
+        _id: updateUser,
+    }, req.body, function (err, resp) {
+        if (err) return res.status(500).send(err);
+        res.sendStatus(200);
+    })
 });
+
+
+app.delete('/cards/:cardid', (req, res, next) => {
+    const deleteCard = req.params.cardid;
+    console.log(deleteCard);
+    cards.deleteOne({
+        _id: deleteCard
+    }, (err, resp) => {
+        if (err) return res.status(500).send(err);
+        res.sendStatus(204);
+    })
+});
+
+
+app.listen(PORT, function () {
+    console.log('The magic happens on port ' + PORT);
+});
+
+module.exports = app;

@@ -1,44 +1,30 @@
-const mongoose = require('mongoose');
-// const bcrypt = require('bcrypt');
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
+var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
 
-const UsersSchema = new mongoose.Schema({
+// define the schema for our user model
+var userSchema = mongoose.Schema({
 
-    email: String,
-    hash: String,
-    salt: String,
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    cardPosition: {
+        type: Number,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
 });
 
-
-UsersSchema.methods.setPassword = function (password) {
-    this.salt = crypto.randomBytes(16).toString('hex');
-    this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
-};
-
-UsersSchema.methods.validatePassword = function (password) {
-    const hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
-    return this.hash === hash;
-};
-
-UsersSchema.methods.generateJWT = function () {
-    const today = new Date();
-    const expirationDate = new Date(today);
-    expirationDate.setDate(today.getDate() + 60);
-
-    return jwt.sign({
-        email: this.email,
-        id: this._id,
-        exp: parseInt(expirationDate.getTime() / 1000, 10),
-    }, 'secret');
-}
-
-UsersSchema.methods.toAuthJSON = function () {
-    return {
-        _id: this._id,
-        email: this.email,
-        token: this.generateJWT(),
-    };
-};
-
-module.exports = mongoose.model('users', UsersSchema);
+// create the model for users and expose it to our app
+module.exports = mongoose.model('User', userSchema);

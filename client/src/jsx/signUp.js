@@ -21,7 +21,10 @@ export class Signup extends Component {
         super(props);
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            firstName: "",
+            lastName: "",
+            cardPosition: ""
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -43,7 +46,7 @@ export class Signup extends Component {
         console.log(this.state);
 
         //   console.log('Restult', cards);
-        fetch('/api/users', {
+        fetch('/users', {
             method: 'POST',
             body: JSON.stringify(this.state),
             headers: {
@@ -103,6 +106,36 @@ export class Signup extends Component {
                                             className="input"
                                             type="text"
                                             name="password"
+
+                                            onChange={this.handleChange}
+                                        />
+
+                                        <span className="title"> <label className="label">First Name</label> </span>
+
+                                        <input
+                                            className="input"
+                                            type="text"
+                                            name="firstName"
+
+                                            onChange={this.handleChange}
+                                        />
+
+                                        <span className="title"> <label className="label">Surname</label> </span>
+
+                                        <input
+                                            className="input"
+                                            type="text"
+                                            name="lastName"
+
+                                            onChange={this.handleChange}
+                                        />
+
+                                        <span className="title"> <label className="label">Current Card Position</label> </span>
+
+                                        <input
+                                            className="input"
+                                            type="text"
+                                            name="cardPosition"
 
                                             onChange={this.handleChange}
                                         />
