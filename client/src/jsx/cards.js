@@ -140,6 +140,7 @@ export class Cards extends Component {
               moreInfo: ""
             }));
 
+        // look into states for changing the display
         let cardIdDOM = document.getElementById(editedCard)
 
         if (cardIdDOM.style.display === "none") {

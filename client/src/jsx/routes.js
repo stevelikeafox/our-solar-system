@@ -8,6 +8,8 @@ import { AddCards } from './addCards';
 import { AccountDetails } from './accountDetails';
 import { Signup } from './signUp';
 import { Login } from './login';
+import { NASA } from './nasa';
+
 
 export const Routes = () => {
     return (
@@ -22,6 +24,7 @@ export const Routes = () => {
                 <Route exact path="/addCards" component={AddCards} />
                 <Route exact path="/signUp" component={Signup} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/nasa" component={NASA} />
 
             </Switch>
         </div>

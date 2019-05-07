@@ -6,14 +6,25 @@ const app = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const flash = require('connect-flash');
+const redis = require('redis');
+const cookieParser = require('cookie-parser');
 
+const session = require('express-session');
+const redisStore = require('connect-redis')(session);
+
+
+// var LocalStrategy = require('passport-local').Strategy;
 
 const {
     MONGODB_URI,
     PORT,
+    REDIS_URL,
+    SESSION_SECRET
 } = process.env;
 
-
+const redisClient = redis.createClient(REDIS_URL);
 
 mongoose.promise = global.Promise
 const promise = mongoose.connect(MONGODB_URI, { useNewUrlParser: true }); // connect to our database
@@ -23,12 +34,36 @@ promise.then(function (db) {
     console.log('CONNECTION ERROR', err);
 });
 
+/// config passport
+require('./server/config/passport')(passport);
+
 app.use(morgan('dev'));
+app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser());
+
+
+
+app.use(session({
+    secret: SESSION_SECRET,
+    cookie: { maxAge: 60000 },
+    store: new redisStore({
+        client: redisClient,
+        ttl: 260
+    }),
+    resave: false,
+    saveUninitialized: false
+})); // session secret
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 const cards = require('./server/models/cards');
 const users = require('./server/models/users');
 const questions = require('./server/models/questions');
+
+
+require('./server/routes/routes.js')(app, passport);
 
 
 app.post('/cards', (req, res, next) => {
@@ -61,7 +96,7 @@ app.get('/cards', (req, res, next) => {
             if (err) return res.status(500).send(err);
             res.status(200).json(result);
             var data = result;
-
+            return data
         })
 });
 
@@ -118,7 +153,7 @@ app.delete('/cards/:cardid', (req, res, next) => {
 
 
 app.listen(PORT, function () {
-    console.log('The magic happens on port ' + PORT);
+    console.log('Starting Server on: ' + PORT);
 });
 
 module.exports = app;

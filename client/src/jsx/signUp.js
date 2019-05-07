@@ -24,7 +24,7 @@ export class Signup extends Component {
             password: "",
             firstName: "",
             lastName: "",
-            cardPosition: ""
+            cardPosition: 1
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -130,15 +130,15 @@ export class Signup extends Component {
                                             onChange={this.handleChange}
                                         />
 
-                                        <span className="title"> <label className="label">Current Card Position</label> </span>
+                                        {/* <span className="title"> <label className="label">Current Card Position</label> </span>
 
-                                        <input
+                                        <input readOnly
                                             className="input"
                                             type="text"
                                             name="cardPosition"
+                                            value={this.state.cardPosition}
 
-                                            onChange={this.handleChange}
-                                        />
+                                        /> */}
 
                                         <button className="btn waves-effect waves-light" type="submit" name="action">Submit
     <i className="material-icons right">send</i>
