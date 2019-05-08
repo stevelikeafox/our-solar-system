@@ -100,19 +100,23 @@ app.get('/cards', (req, res, next) => {
         })
 });
 
-app.post('/users', (req, res, next) => {
-    const postBody = req.body;
-    console.log('The Data:', postBody);
-    const newUser = new users(postBody);
-    console.log(newUser);
-    password = newUser.password;
-    newUser.password = newUser.generateHash(password);
+// app.post('/users', (req, response, next) => {
+//     const postBody = req.body;
+//     console.log('The Data:', postBody);
+//     const newUser = new users(postBody);
+//     console.log(newUser);
+//     password = newUser.password;
+//     newUser.password = newUser.generateHash(password);
 
-    newUser.save((err, result) => {
-        if (err) return res.status(500).send(err);
-        res.status(201).json(result);
-    });
-});
+//     newUser.save((err, result) => {
+//         if (err) {
+//             return response.status(500).send(err);
+//         } else {
+//             return response.status(201).json(result);
+//         }
+
+//     });
+// });
 
 
 app.get('/users/:id', (req, res) => {

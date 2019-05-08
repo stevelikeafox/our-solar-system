@@ -15,15 +15,18 @@ module.exports = function (app, passport) {
 
     // process the signup form
     // app.post('/signup', do all our passport stuff here);
-    app.post('/signup', // save user);
-
-        // =====================================
-        // LOGOUT ==============================
-        // =====================================
-        app.get('/logout', function (req, res) {
-            req.logout();
-            res.redirect('/login');
-        }));
+    app.post('/signup', passport.authenticate('local-signup'), function (req, res) {
+        const user = req.user;
+        if (!user) return res.sendStatus(404);
+        return res.status(200).send(user);
+    });
+    // =====================================
+    // LOGOUT ==============================
+    // =====================================
+    app.get('/logout', function (req, res) {
+        req.logout();
+        res.redirect('/login');
+    });
 
     // =============================================================================
     // UNLINK ACCOUNTS =============================================================

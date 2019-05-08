@@ -22,7 +22,7 @@ export class AccountDetails extends Component {
 
     componentDidMount() {
 
-        let User = "5ccc969db1e3d265d0fa555d";
+        let User = "5cd34459c26b4b66286b43bf";
 
         fetch(`/users/${User}`)
             .then(res => res.json())
@@ -199,7 +199,7 @@ export class AccountDetails extends Component {
                                                         className="input"
                                                         type="text"
                                                         name="password"
-                                                        defaultValue={this.state.password}
+
                                                         onChange={this.handleChange}
                                                     />
 

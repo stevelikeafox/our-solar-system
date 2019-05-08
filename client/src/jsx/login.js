@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import M from "materialize-css";
 import '../css/cards.css';
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 
 
@@ -123,6 +123,7 @@ export class Login extends Component {
                                     </form>
 
                                 </div>
+                                <p>Need an account? <Link to="/signup">Sign Up</Link></p>
                             </div></div></div></div></div>
         );
     }
