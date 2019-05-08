@@ -17,7 +17,7 @@ export const Routes = () => {
             <NavBar />
             <Switch>
                 <Route exact path="/cards" component={Cards} />
-                <Route exact path="/"><Redirect to="cards" />
+                <Route exact path="/"><Redirect to="login" />
                 </Route>
                 <Route exact path="/solarSystemModel" component={SolarSystemModel} />
                 <Route exact path="/accountDetails" component={AccountDetails} />

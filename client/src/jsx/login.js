@@ -2,12 +2,21 @@ import React, { Component } from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import M from "materialize-css";
 import '../css/cards.css';
-
+import { Redirect } from 'react-router-dom'
 
 
 
 export class Login extends Component {
 
+    state = {
+        redirect: false
+    }
+
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/cards' />
+        }
+    }
 
     // needs to go into constructor
     componentDidMount() {
@@ -41,7 +50,7 @@ export class Login extends Component {
         event.preventDefault();
         // console.log(this.state);
 
-        fetch('/api/users/login', {
+        fetch('/login', {
             method: 'POST',
             body: JSON.stringify(this.state),
             headers: {
@@ -52,6 +61,13 @@ export class Login extends Component {
             .then(response => {
                 console.log(response.headers.get('Content-Type'))
                 console.log(response);
+                if (response.status === 200) {
+                    this.setState({
+                        redirect: true
+                    })
+                } else {
+                    console.log("not logged in!!");
+                }
             })
             .catch(err => {
                 // console.log(error);
@@ -69,7 +85,7 @@ export class Login extends Component {
 
 
             <div className="container">
-
+                {this.renderRedirect()}
                 <div className="row">
 
                     <div className="col s10 offset-s1">

@@ -104,7 +104,9 @@ app.post('/users', (req, res, next) => {
     const postBody = req.body;
     console.log('The Data:', postBody);
     const newUser = new users(postBody);
-
+    console.log(newUser);
+    password = newUser.password;
+    newUser.password = newUser.generateHash(password);
 
     newUser.save((err, result) => {
         if (err) return res.status(500).send(err);
