@@ -14,7 +14,7 @@ export class SolarSystemModel extends Component {
 
         const scene = new THREE.Scene();
         const aspect = window.innerWidth / window.innerHeight;
-        const camera = new THREE.PerspectiveCamera(40, aspect, 0.1, 10000);
+        const camera = new THREE.PerspectiveCamera(40, aspect, 0.1, 10000); // 4th argument sets the clipping distance.
         const renderer = new THREE.WebGLRenderer({ antialias: true });
 
         // let height = document.getElementsByTagName("nav");
