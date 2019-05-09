@@ -2,20 +2,22 @@ import React, { Component } from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import M from "materialize-css";
 import '../css/cards.css';
-
-
-// export class AddCards extends Component {
-
-// state = {
-//     cards: []
-// }
+import { Redirect, Link } from 'react-router-dom'
 
 
 
+export class Signup extends Component {
 
+    state = {
+        redirect: false
+    }
 
-export class AddCards extends Component {
-
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/login' />
+        }
+    }
+    // needs to go into constructor
     componentDidMount() {
 
         M.AutoInit();
@@ -26,11 +28,11 @@ export class AddCards extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cardNum: "",
-            fact: "",
-            cardTitle: "",
-            img: "",
-            moreInfo: ""
+            email: "",
+            password: "",
+            firstName: "",
+            lastName: "",
+            cardPosition: 1
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -49,10 +51,10 @@ export class AddCards extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        // console.log(this.state);
+        console.log(this.state);
 
         //   console.log('Restult', cards);
-        fetch('/cards', {
+        fetch('/signup', {
             method: 'POST',
             body: JSON.stringify(this.state),
             headers: {
@@ -61,17 +63,20 @@ export class AddCards extends Component {
             }
         })
 
-            .then(cards => {
-
-                M.toast({
-                    html: "Card Saved!",
-                    classes: "success"
-
-                });
-
-            })
-            .then(() => {
-                this.props.history.push('/cards')
+            .then(response => {
+                console.log(response);
+                if (response.status === 200) {
+                    this.setState({
+                        redirect: true,
+                        email: "",
+                        password: "",
+                        firstName: "",
+                        lastName: "",
+                        cardPosition: 1
+                    })
+                } else {
+                    console.log("not logged in!!");
+                }
             })
             .catch(err => {
                 // console.log(error);
@@ -81,76 +86,76 @@ export class AddCards extends Component {
                 });
             });
 
+
     }
 
     render() {
-
         return (
 
 
             <div className="container">
-
+                {this.renderRedirect()}
                 <div className="row">
 
                     <div className="col s10 offset-s1">
-                        <h1 className="headline">Add Cards</h1>
+                        <h1 className="headline">Sign Up</h1>
 
                         <div className="card z-depth-3">
                             <div className="user-content">
                                 <div className="addcardscontainer">
                                     <form className="form" onSubmit={this.handleSubmit}>
 
-                                        <span className="title"> <label className="label">Card Number</label> </span>
+                                        <span className="title"> <label className="label">Email</label> </span>
 
                                         <input
                                             className="input"
                                             type="text"
-                                            name="cardNum"
-                                            value={this.state.cardNum}
+                                            name="email"
+
                                             onChange={this.handleChange}
                                         />
 
-                                        <span className="title"> <label className="label">Fact</label> </span>
+                                        <span className="title"> <label className="label">Password</label> </span>
 
                                         <input
                                             className="input"
                                             type="text"
-                                            name="fact"
-                                            value={this.state.fact}
+                                            name="password"
+
                                             onChange={this.handleChange}
                                         />
 
-
-                                        <span className="title"> <label className="label">Card Title</label> </span>
+                                        <span className="title"> <label className="label">First Name</label> </span>
 
                                         <input
                                             className="input"
                                             type="text"
-                                            name="cardTitle"
-                                            value={this.state.cardTitle}
+                                            name="firstName"
+
                                             onChange={this.handleChange}
                                         />
 
-                                        <span className="title"> <label className="label">Image Link</label> </span>
+                                        <span className="title"> <label className="label">Surname</label> </span>
 
                                         <input
                                             className="input"
                                             type="text"
-                                            name="img"
-                                            value={this.state.img}
+                                            name="lastName"
+
                                             onChange={this.handleChange}
                                         />
 
-                                        <span className="title"> <label className="label">More Infomation</label> </span>
+                                        {/* <span className="title"> <label className="label">Current Card Position</label> </span>
 
-                                        <textarea
-                                            className="textarea"
-                                            name="moreInfo"
-                                            value={this.state.moreInfo}
-                                            onChange={this.handleChange}
-                                        />
+                                        <input readOnly
+                                            className="input"
+                                            type="text"
+                                            name="cardPosition"
+                                            value={this.state.cardPosition}
 
-                                        <button className="btn waves-effect waves-light blue" type="submit" name="action">Submit
+                                        /> */}
+
+                                        <button className="btn waves-effect waves-light" type="submit" name="action">Submit
     <i className="material-icons right">send</i>
                                         </button>
 
@@ -162,4 +167,4 @@ export class AddCards extends Component {
     }
 }
 
-export default AddCards;
+export default Signup;

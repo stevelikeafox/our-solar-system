@@ -1,111 +1,91 @@
 require('dotenv').config();
+
+
 const express = require('express');
-const mongoose = require('mongoose');
-const parser = require('body-parser');
-
 const app = express();
-const PORT = process.env.PORT || 4444;
+const mongoose = require('mongoose');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const flash = require('connect-flash');
+const redis = require('redis');
+const cookieParser = require('cookie-parser');
+
+const session = require('express-session');
+const redisStore = require('connect-redis')(session);
 
 
-app.use(parser.json());
-app.use(parser.urlencoded({
-    extended: false
-}));
-app.use(express.static('public'));
+// var LocalStrategy = require('passport-local').Strategy;
 
-mongoose.Promise = global.Promise;
-const dbConnection = mongoose.connect('mongodb://localhost/our-solar-system', {
-    useNewUrlParser: true
+const {
+    MONGODB_URI,
+    PORT,
+    REDIS_URL,
+    SESSION_SECRET
+} = process.env;
+
+const redisClient = redis.createClient(REDIS_URL);
+
+mongoose.promise = global.Promise
+const promise = mongoose.connect(MONGODB_URI, { useNewUrlParser: true }); // connect to our database
+promise.then(function (db) {
+    console.log('DATABASE CONNECTED!!');
+}).catch(function (err) {
+    console.log('CONNECTION ERROR', err);
 });
 
-dbConnection.then((db) => {
-    console.log('Database Connected');
-}).catch((err) => {
-    console.log('Error database not connected', err);
-});
+/// config passport
+require('./server/config/passport')(passport);
 
-const schema = mongoose.Schema;
-const usersCollection = new schema({
-
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    cardPosition: {
-        type: Number,
-        required: true
-    },
-});
-
-const cardsCollection = new schema({
-
-    cardNum: {
-        type: Number,
-        required: true
-    },
-    cardTitle: {
-        type: String,
-        required: true
-    },
-    fact: {
-        type: String,
-        required: true
-    },
-    img: {
-        type: String,
-        required: true
-    },
-    video: {
-        type: String,
-        required: false
-    },
-    moreInfo: {
-        type: String,
-        required: false
-    },
-    animation: {
-        type: String,
-        required: false
-    }
-});
-
-const users = mongoose.model('users', usersCollection);
-const cards = mongoose.model('cards', cardsCollection);
-
-console.log("working");
+app.use(morgan('dev'));
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser());
 
 
-app.post('/users', (req, res, next) => {
-    const postBody = req.body;
-    //   console.log('The Data:', postBody); // whoo whoo working now send to database
-    const newUser = new users(postBody); // body of req to musiccollection schema
 
-    // now save it **Note to self type music correctly LOL :{
-    newUser.save((err, result) => {
-        if (err) return res.status(500).send(err);
-        res.status(201).json(result);
-    });
-});
+app.use(session({
+    secret: SESSION_SECRET,
+    cookie: { maxAge: 60000 },
+    store: new redisStore({
+        client: redisClient,
+        ttl: 260
+    }),
+    resave: false,
+    saveUninitialized: false
+})); // session secret
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+const cards = require('./server/models/cards');
+const users = require('./server/models/users');
+const questions = require('./server/models/questions');
+
+
+require('./server/routes/routes.js')(app, passport);
 
 
 app.post('/cards', (req, res, next) => {
     const postBody = req.body;
-    //   console.log('The Data:', postBody); // whoo whoo working now send to database
-    const newCard = new cards(postBody); // body of req to musiccollection schema
+    const newCard = new cards(postBody);
 
-    // now save it **Note to self type music correctly LOL :{
+
     newCard.save((err, result) => {
         if (err) return res.status(500).send(err);
         res.status(201).json(result);
     });
+});
+
+app.put('/cards/:cardid', (req, res, next) => {
+    const updateCard = req.params.cardid;
+    console.log(updateCard);
+    cards.update({
+        _id: updateCard,
+    }, req.body, function (err, resp) {
+        if (err) return res.status(500).send(err);
+        res.sendStatus(200);
+    })
 });
 
 app.get('/cards', (req, res, next) => {
@@ -116,11 +96,70 @@ app.get('/cards', (req, res, next) => {
             if (err) return res.status(500).send(err);
             res.status(200).json(result);
             var data = result;
-
-            console.log(data); //test
+            return data
         })
 });
 
-app.listen(PORT, () => {
-    console.log(`App Communicating on port: ${PORT}`)
+// app.post('/users', (req, response, next) => {
+//     const postBody = req.body;
+//     console.log('The Data:', postBody);
+//     const newUser = new users(postBody);
+//     console.log(newUser);
+//     password = newUser.password;
+//     newUser.password = newUser.generateHash(password);
+
+//     newUser.save((err, result) => {
+//         if (err) {
+//             return response.status(500).send(err);
+//         } else {
+//             return response.status(201).json(result);
+//         }
+
+//     });
+// });
+
+
+app.get('/users/:id', (req, res) => {
+    var query = {};
+    var id = req.params.id;
+
+    if (id) {
+        query._id = id
+
+    }
+    users.find(query).exec(function (err, users) {
+        if (err) return res.status(500).send(err);
+        res.status(200).json(users);
+    });
 });
+
+
+app.put('/users/:userid', (req, res, next) => {
+    const updateUser = req.params.userid;
+    console.log(updateUser);
+    users.update({
+        _id: updateUser,
+    }, req.body, function (err, resp) {
+        if (err) return res.status(500).send(err);
+        res.sendStatus(200);
+    })
+});
+
+
+app.delete('/cards/:cardid', (req, res, next) => {
+    const deleteCard = req.params.cardid;
+    console.log(deleteCard);
+    cards.deleteOne({
+        _id: deleteCard
+    }, (err, resp) => {
+        if (err) return res.status(500).send(err);
+        res.sendStatus(204);
+    })
+});
+
+
+app.listen(PORT, function () {
+    console.log('Starting Server on: ' + PORT);
+});
+
+module.exports = app;
