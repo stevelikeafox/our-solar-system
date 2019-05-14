@@ -129,7 +129,7 @@ export class Cards extends Component {
     })
 
       .then(cards => {
-        fetch('/cards')
+        fetch('/api/cards')
           .then(res => res.json())
           .then(cards =>
             this.setState({
