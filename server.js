@@ -88,7 +88,7 @@ app.put('/cards/:cardid', (req, res, next) => {
     })
 });
 
-app.get('/api/cards', (req, res, next) => {
+app.get('/cards', (req, res, next) => {
     cards.find({
 
     })

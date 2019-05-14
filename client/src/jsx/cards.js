@@ -5,7 +5,7 @@ import '../css/cards.css';
 import 'materialize-css/dist/css/materialize.min.css';
 
 
-export class Cards extends Component {
+export class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -129,7 +129,7 @@ export class Cards extends Component {
     })
 
       .then(cards => {
-        fetch('/api/cards')
+        fetch('/cards')
           .then(res => res.json())
           .then(cards =>
             this.setState({
@@ -288,4 +288,4 @@ export class Cards extends Component {
 
 
 
-export default Cards;
+export default Home;
