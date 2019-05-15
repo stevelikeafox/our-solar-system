@@ -66,7 +66,7 @@ const questions = require('./server/models/questions');
 require('./server/routes/routes.js')(app, passport);
 
 
-app.post('/cards', (req, res, next) => {
+app.post('/apicards', (req, res, next) => {
     const postBody = req.body;
     const newCard = new cards(postBody);
 
@@ -77,7 +77,7 @@ app.post('/cards', (req, res, next) => {
     });
 });
 
-app.put('/cards/:cardid', (req, res, next) => {
+app.put('/apicards/:cardid', (req, res, next) => {
     const updateCard = req.params.cardid;
     console.log(updateCard);
     cards.update({
@@ -88,7 +88,7 @@ app.put('/cards/:cardid', (req, res, next) => {
     })
 });
 
-app.get('/cards', (req, res, next) => {
+app.get('/apicards', (req, res, next) => {
     cards.find({
 
     })
@@ -146,7 +146,7 @@ app.put('/users/:userid', (req, res, next) => {
 });
 
 
-app.delete('/cards/:cardid', (req, res, next) => {
+app.delete('/apicards/:cardid', (req, res, next) => {
     const deleteCard = req.params.cardid;
     console.log(deleteCard);
     cards.deleteOne({
