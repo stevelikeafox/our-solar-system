@@ -52,7 +52,7 @@ export class AddCards extends Component {
         // console.log(this.state);
 
         //   console.log('Restult', cards);
-        fetch('/cards', {
+        fetch('/apicards', {
             method: 'POST',
             body: JSON.stringify(this.state),
             headers: {
