@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Home } from './home';
+import { Cards } from './cards';
 import { SolarSystemModel } from './solarSystemModel';
 import { NavBar } from './navbar';
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -16,7 +16,7 @@ export const Routes = () => {
         <div>
             <NavBar />
             <Switch>
-                <Route exact path="/home" component={Home} />
+                <Route exact path="/cards" component={Cards} />
                 <Route exact path="/"><Redirect to="login" />
                 </Route>
                 <Route exact path="/solarSystemModel" component={SolarSystemModel} />
