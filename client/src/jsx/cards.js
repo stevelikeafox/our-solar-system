@@ -5,7 +5,7 @@ import '../css/cards.css';
 import 'materialize-css/dist/css/materialize.min.css';
 
 
-export class Home extends Component {
+export class Cards extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -288,4 +288,4 @@ export class Home extends Component {
 
 
 
-export default Home;
+export default Cards;
