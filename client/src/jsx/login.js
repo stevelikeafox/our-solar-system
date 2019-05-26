@@ -8,9 +8,7 @@ import { Redirect, Link } from 'react-router-dom'
 
 export class Login extends Component {
 
-    state = {
-        redirect: false
-    }
+
 
     renderRedirect = () => {
         if (this.state.redirect) {
@@ -30,7 +28,9 @@ export class Login extends Component {
         super(props);
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            redirect: false,
+            id: ""
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -59,20 +59,23 @@ export class Login extends Component {
         })
 
             .then(response => {
-                console.log(response.headers.get('Content-Type'))
-                console.log(response);
+                // console.log(response.headers.get('Content-Type'))
+                // console.log(response);
                 if (response.status === 200) {
                     this.setState({
-                        redirect: true
+                        redirect: true,
+                        id: response._id
                     })
-                } else {
-                    console.log("not logged in!!");
+                }
+                if (response.status === 400) {
+                    throw new Error('Please Enter Your Email and Password!');
+                } if (response.status === 401) {
+                    throw new Error('Email / Password not found please try again!');
                 }
             })
-            .catch(err => {
-                // console.log(error);
+            .catch(error => {
                 M.toast({
-                    html: `Error: ${err.message}`,
+                    html: `${error.message}`,
                     classes: 'error'
                 });
             });
