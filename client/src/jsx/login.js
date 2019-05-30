@@ -3,8 +3,6 @@ import 'materialize-css/dist/css/materialize.min.css';
 import M from "materialize-css";
 import '../css/cards.css';
 import { Redirect, Link } from 'react-router-dom'
-import { AccountDetails } from './accountDetails';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 
 export class Login extends Component {
@@ -13,7 +11,7 @@ export class Login extends Component {
 
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <AccountDetails />
+            return <Redirect to='/accountDetails' />
         }
     }
 

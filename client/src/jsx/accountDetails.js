@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import M from "materialize-css";
 import '../css/cards.css';
 import 'materialize-css/dist/css/materialize.min.css';
-import { Login } from './login';
 
 
 export class AccountDetails extends Component {
@@ -23,7 +22,7 @@ export class AccountDetails extends Component {
 
     componentDidMount(props) {
 
-        let User = '5cd4641aa724155c70327a46';
+        let User = '5cf0548041980d3790d3bb94';
 
         fetch(`/users/${User}`)
             .then(res => res.json())
