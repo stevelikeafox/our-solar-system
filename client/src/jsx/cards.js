@@ -49,7 +49,7 @@ export class Cards extends Component {
         console.log('resp', resp);
         M.toast({
           html: "Card Deleted!",
-          classes: "success"
+          classes: "toastSuccess"
         });
 
       })
@@ -57,7 +57,7 @@ export class Cards extends Component {
         console.log('err', err);
         M.toast({
           html: `Error: ${err.message}`,
-          classes: "error"
+          classes: "toastError"
         });
       });
 
@@ -151,7 +151,7 @@ export class Cards extends Component {
 
         M.toast({
           html: "Card Saved!",
-          classes: "success"
+          classes: "toastSuccess"
         });
         // makeCall();
       })
@@ -159,7 +159,7 @@ export class Cards extends Component {
         // console.log(error);
         M.toast({
           html: `Error: ${err.message}`,
-          classes: 'error'
+          classes: 'toastError'
         });
       });
 

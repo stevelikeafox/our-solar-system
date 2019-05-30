@@ -11,9 +11,9 @@ var userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    firstName: String,
-    lastName: String,
-    cardPosition: String
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    cardPosition: { type: Number, required: true }
 });
 
 

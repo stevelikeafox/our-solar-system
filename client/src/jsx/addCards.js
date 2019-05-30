@@ -65,7 +65,7 @@ export class AddCards extends Component {
 
                 M.toast({
                     html: "Card Saved!",
-                    classes: "success"
+                    classes: "toastSuccess"
 
                 });
 
@@ -77,7 +77,7 @@ export class AddCards extends Component {
                 // console.log(error);
                 M.toast({
                     html: `Error: ${err.message}`,
-                    classes: 'error'
+                    classes: 'toastError'
                 });
             });
 

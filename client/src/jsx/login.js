@@ -3,7 +3,8 @@ import 'materialize-css/dist/css/materialize.min.css';
 import M from "materialize-css";
 import '../css/cards.css';
 import { Redirect, Link } from 'react-router-dom'
-
+import { AccountDetails } from './accountDetails';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 
 export class Login extends Component {
@@ -12,11 +13,10 @@ export class Login extends Component {
 
     renderRedirect = () => {
         if (this.state.redirect) {
-            return <Redirect to='/cards' />
+            return <AccountDetails />
         }
     }
 
-    // needs to go into constructor
     componentDidMount() {
 
         M.AutoInit();
@@ -76,7 +76,7 @@ export class Login extends Component {
             .catch(error => {
                 M.toast({
                     html: `${error.message}`,
-                    classes: 'error'
+                    classes: 'toastError'
                 });
             });
 
@@ -84,8 +84,11 @@ export class Login extends Component {
     }
 
     render() {
-        return (
 
+        var id = this.state.id;
+
+
+        return (
 
             <div className="container">
                 {this.renderRedirect()}
@@ -127,9 +130,18 @@ export class Login extends Component {
 
                                 </div>
                                 <p>Need an account? <Link to="/signup">Sign Up</Link></p>
-                            </div></div></div></div></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         );
     }
 }
+
 
 export default Login;

@@ -74,15 +74,23 @@ export class Signup extends Component {
                         lastName: "",
                         cardPosition: 1
                     })
-                } else {
-                    console.log("not logged in!!");
+                    M.toast({
+                        html: "User Created!",
+                        classes: "toastSuccess"
+
+                    });
+                } if (response.status === 400) {
+                    throw new Error('Please Enter Your Details!');
+                } if (response.status === 401) {
+                    throw new Error('Email Address Already Registered!');
                 }
+
             })
-            .catch(err => {
+            .catch(error => {
                 // console.log(error);
                 M.toast({
-                    html: `Error: ${err.message}`,
-                    classes: 'error'
+                    html: `${error.message}`,
+                    classes: 'toastError'
                 });
             });
 

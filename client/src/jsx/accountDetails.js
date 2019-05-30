@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import M from "materialize-css";
 import '../css/cards.css';
 import 'materialize-css/dist/css/materialize.min.css';
+import { Login } from './login';
 
 
 export class AccountDetails extends Component {
@@ -20,9 +21,9 @@ export class AccountDetails extends Component {
 
     };
 
-    componentDidMount() {
+    componentDidMount(props) {
 
-        let User = "5cd34459c26b4b66286b43bf";
+        let User = '5cd4641aa724155c70327a46';
 
         fetch(`/users/${User}`)
             .then(res => res.json())
@@ -98,8 +99,8 @@ export class AccountDetails extends Component {
             };
 
             M.toast({
-                html: "Card Saved!",
-                classes: "success"
+                html: "User Updated!",
+                classes: "toastSuccess"
             });
             // makeCall();
         })
@@ -107,7 +108,7 @@ export class AccountDetails extends Component {
                 // console.log(error);
                 M.toast({
                     html: `Error: ${err.message}`,
-                    classes: 'error'
+                    classes: 'toastError'
                 });
             });
 

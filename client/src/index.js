@@ -8,7 +8,7 @@ import * as serviceWorker from './jsx/serviceWorker';
 
 
 ReactDOM.render(
-    <Router>
+    <Router title={"Test"}>
         <Routes />
     </Router>,
     document.getElementById('root'),
