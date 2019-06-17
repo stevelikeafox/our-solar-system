@@ -41,7 +41,8 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "redis": "^2.8.0",
-    "sessions": "0.0.2-7"
+    "sessions": "0.0.2-7",
+    "three-orbitcontrols": "^2.102.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.11"

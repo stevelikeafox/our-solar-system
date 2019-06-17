@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import M from "materialize-css";
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import OrbitControls from 'three-orbitcontrols';
 
 
 export class SolarSystemModel extends Component {

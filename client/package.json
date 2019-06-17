@@ -1,5 +1,10 @@
 {
   "name": "client",
+  "jest": {
+    "setupFiles": [
+      "jest-canvas-mock"
+    ]
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,7 +13,8 @@
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
-    "three": "^0.104.0"
+    "three": "^0.104.0",
+    "three-orbitcontrols": "^2.102.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,6 +42,7 @@
     "eslint": "^5.16.0",
     "eslint-config-google": "^0.12.0",
     "eslint-plugin-react": "^7.12.4",
-    "jest": "^24.7.1"
+    "jest": "^24.7.1",
+    "jest-canvas-mock": "^2.1.0"
   }
 }
