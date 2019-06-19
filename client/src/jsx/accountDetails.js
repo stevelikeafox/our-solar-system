@@ -24,7 +24,7 @@ export class AccountDetails extends Component {
 
         let User = '5cf0548041980d3790d3bb94';
 
-        fetch(`/users/${User}`)
+        fetch(`/api/v1/users/${User}`)
             .then(res => res.json())
             .then(users => this.setState({
                 users,
@@ -37,9 +37,9 @@ export class AccountDetails extends Component {
 
         let clickedUser = users;
         let userId = users._id;
-        console.log(userId);
+        // console.log(userId);
         let userIdDOM = document.getElementById(userId)
-        console.log(userIdDOM);
+        // console.log(userIdDOM);
 
 
 
@@ -73,43 +73,53 @@ export class AccountDetails extends Component {
 
         event.preventDefault();
         let editedUser = this.state._id;
-        console.log(this.state);
+        // console.log(this.state);
 
-        fetch(`/users/${editedUser}`, {
+        fetch(`/api/v1/users/${editedUser}`, {
             method: 'PUT',
             body: JSON.stringify(this.state),
             headers: {
                 "Content-Type": "application/json",
-
             }
-        }).then(users => {
-            fetch(`/users/${editedUser}`)
-                .then(res => res.json())
-                .then(users => this.setState({
-                    users,
-                }));
+        }).then(response => {
+            if (response.status === 200) {
+                M.toast({
+                    html: "User Updated!",
+                    classes: "toastSuccess"
 
-            let userIdDOM = document.getElementById(editedUser)
-
-            if (userIdDOM.style.display === "none") {
-                userIdDOM.style.display = "block";
-            } else {
-                userIdDOM.style.display = "none";
-            };
-
-            M.toast({
-                html: "User Updated!",
-                classes: "toastSuccess"
-            });
-            // makeCall();
+                })
+                this.props.history.push('/accountDetails')
+            }
+            if (response.status === 500) {
+                throw new Error('Sorry There Was an Error! Check You Have Filled Out All The Fields and Try Again!');
+            }
         })
-            .catch(err => {
+            .catch(error => {
                 // console.log(error);
                 M.toast({
-                    html: `Error: ${err.message}`,
+                    html: `Error: ${error.message}`,
                     classes: 'toastError'
                 });
-            });
+            })
+            .then(users => {
+                fetch(`/api/v1/users/${editedUser}`)
+                    .then(res => res.json())
+                    .then(users => this.setState({
+                        users,
+                    }));
+
+                let userIdDOM = document.getElementById(editedUser)
+
+                if (userIdDOM.style.display === "none") {
+                    userIdDOM.style.display = "block";
+                } else {
+                    userIdDOM.style.display = "none";
+                };
+
+
+
+                // makeCall();
+            })
 
     }
 
@@ -183,7 +193,7 @@ export class AccountDetails extends Component {
                                                         onChange={this.handleChange}
                                                     />
 
-                                                    <span className="title"> <label className="label">Email</label> </span>
+                                                    {/* <span className="title"> <label className="label">Email</label> </span>
 
                                                     <input
                                                         className="input"
@@ -201,7 +211,7 @@ export class AccountDetails extends Component {
                                                         name="password"
 
                                                         onChange={this.handleChange}
-                                                    />
+                                                    /> */}
 
                                                     <button className="btn waves-effect waves-light blue" type="submit" name="action">Submit
 <i className="material-icons right">send</i>

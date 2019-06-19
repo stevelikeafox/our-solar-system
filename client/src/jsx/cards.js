@@ -21,9 +21,11 @@ export class Cards extends Component {
 
   };
 
+
+
   componentDidMount() {
 
-    fetch('/apicards')
+    fetch('/api/v1/cards')
       .then(res => res.json())
       .then(cards =>
         this.setState({
@@ -42,7 +44,7 @@ export class Cards extends Component {
   handleClick(cards, action, shown) {
     let clickedCard = cards;
 
-    fetch(`/apicards/${clickedCard._id}`, {
+    fetch(`/api/v1/cards/${clickedCard._id}`, {
       method: 'DELETE'
     })
       .then(resp => {
@@ -62,7 +64,7 @@ export class Cards extends Component {
       });
 
 
-    fetch('/apicards')
+    fetch('/api/v1/cards')
       .then(res => res.json())
       .then(cards =>
         this.setState({
@@ -119,7 +121,7 @@ export class Cards extends Component {
     let editedCard = this.state._id;
     console.log(this.state._id);
 
-    fetch(`/apicards/${editedCard}`, {
+    fetch(`/api/v1/cards/${editedCard}`, {
       method: 'PUT',
       body: JSON.stringify(this.state),
       headers: {
@@ -129,7 +131,7 @@ export class Cards extends Component {
     })
 
       .then(cards => {
-        fetch('/apicards')
+        fetch('/api/v1/cards')
           .then(res => res.json())
           .then(cards =>
             this.setState({

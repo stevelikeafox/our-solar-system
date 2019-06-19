@@ -52,7 +52,7 @@ export class AddCards extends Component {
         // console.log(this.state);
 
         //   console.log('Restult', cards);
-        fetch('/apicards', {
+        fetch('/api/v1/cards', {
             method: 'POST',
             body: JSON.stringify(this.state),
             headers: {
@@ -61,22 +61,53 @@ export class AddCards extends Component {
             }
         })
 
-            .then(cards => {
 
-                M.toast({
-                    html: "Card Saved!",
-                    classes: "toastSuccess"
 
-                });
+            // .then(response => {
+            //     // console.log(response.headers.get('Content-Type'))
+            //     // console.log(response);
+            //     if (response.status === 200) {
+            //         M.toast({
+            //             html: "Card Created!",
+            //             classes: "toastSuccess"
 
+            //         })           
+
+            //     };
+            //     .then(() => {
+            //         this.props.history.push('/cards')
+            //     })
+            //     if (response.status === 500) {
+            //         throw new Error('Sorry There Was an Error!');
+            //     } 
+            // })
+            // .catch(error => {
+            //     M.toast({
+            //         html: `${error.message}`,
+            //         classes: 'toastError'
+            //     });
+            // });
+
+
+
+            .then(response => {
+                if (response.status === 201) {
+                    M.toast({
+                        html: "Card Saved!",
+                        classes: "toastSuccess"
+
+                    })
+                    this.props.history.push('/cards')
+                }
+                if (response.status === 500) {
+                    throw new Error('Sorry There Was an Error! Check You Have Filled Out All The Fields and Try Again!');
+                }
             })
-            .then(() => {
-                this.props.history.push('/cards')
-            })
-            .catch(err => {
-                // console.log(error);
+
+            .catch(error => {
+                console.log("error", error);
                 M.toast({
-                    html: `Error: ${err.message}`,
+                    html: `${error.message}`,
                     classes: 'toastError'
                 });
             });

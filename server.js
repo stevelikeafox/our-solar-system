@@ -58,105 +58,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-const cards = require('./server/models/cards');
-const users = require('./server/models/users');
+require('./server/api/auth.js')(app, passport);
+require('./server/api/cards.js')(app);
+require('./server/api/users.js')(app);
+require('./server/api/questions.js')(app);
+
+
 const questions = require('./server/models/questions');
-
-
-require('./server/routes/routes.js')(app, passport);
-
-
-app.post('/apicards', (req, res, next) => {
-    const postBody = req.body;
-    const newCard = new cards(postBody);
-
-
-    newCard.save((err, result) => {
-        if (err) return res.status(500).send(err);
-        res.status(201).json(result);
-    });
-});
-
-app.put('/apicards/:cardid', (req, res, next) => {
-    const updateCard = req.params.cardid;
-    console.log(updateCard);
-    cards.update({
-        _id: updateCard,
-    }, req.body, function (err, resp) {
-        if (err) return res.status(500).send(err);
-        res.sendStatus(200);
-    })
-});
-
-app.get('/apicards', (req, res, next) => {
-    cards.find({
-
-    })
-        .exec((err, result) => {
-            if (err) return res.status(500).send(err);
-            res.status(200).json(result);
-            var data = result;
-            return data
-        })
-});
-
-// app.post('/users', (req, response, next) => {
-//     const postBody = req.body;
-//     console.log('The Data:', postBody);
-//     const newUser = new users(postBody);
-//     console.log(newUser);
-//     password = newUser.password;
-//     newUser.password = newUser.generateHash(password);
-
-//     newUser.save((err, result) => {
-//         if (err) {
-//             return response.status(500).send(err);
-//         } else {
-//             return response.status(201).json(result);
-//         }
-
-//     });
-// });
-
-
-app.get('/users/:id', (req, res) => {
-    var query = {};
-    var id = req.params.id;
-
-    if (id) {
-        query._id = id
-
-    }
-    users.find(query).exec(function (err, users) {
-        if (err) return res.status(500).send(err);
-        res.status(200).json(users);
-    });
-});
-
-
-app.put('/users/:userid', (req, res, next) => {
-    const updateUser = req.params.userid;
-    console.log(updateUser);
-    users.update({
-        _id: updateUser,
-    }, req.body, function (err, resp) {
-        if (err) return res.status(500).send(err);
-        res.sendStatus(200);
-    })
-});
-
-
-app.delete('/apicards/:cardid', (req, res, next) => {
-    const deleteCard = req.params.cardid;
-    console.log(deleteCard);
-    cards.deleteOne({
-        _id: deleteCard
-    }, (err, resp) => {
-        if (err) return res.status(500).send(err);
-        res.sendStatus(204);
-    })
-});
-
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -167,9 +75,6 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
     });
 }
-
-
-
 
 app.listen(process.env.PORT || 3000, function () {
     console.log('Starting Server on: ' + PORT);
