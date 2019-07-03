@@ -165,7 +165,7 @@ export class SolarSystemModel extends Component {
     return (
       <div className="controls">
         <div className="row control">
-          <div className="col s3 offset-s5">
+          <div className="col s10 offset-s1">
             <blockquote>
               {" "}
               <p className="flow-text controlText">Controls </p>
