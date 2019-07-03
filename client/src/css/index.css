@@ -64,16 +64,17 @@ p {
 
 .controlText {
   color: azure;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
 }
 .control {
   position: absolute;
-  width: 100%;
 }
 
 blockquote {
-  margin-top: 100px;
+  margin-top: 64px;
   background-color: black;
+  padding: 10px;
+  margin-left: 10px;
 }
 
 .row {
@@ -111,6 +112,10 @@ nav {
   margin-top: 64px;
 }
 
+.control-list {
+  color: azure;
+}
+
 @media screen and (max-width: 600px) {
   nav .brand-logo {
     font-family: "Orbitron", sans-serif;
@@ -122,6 +127,9 @@ nav {
   }
 
   .sidenav {
+    margin-top: 54px;
+  }
+  blockquote {
     margin-top: 54px;
   }
 }

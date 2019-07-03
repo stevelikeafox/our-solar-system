@@ -165,27 +165,19 @@ export class SolarSystemModel extends Component {
     return (
       <div className="controls">
         <div className="row control">
-          <div className="col s10 offset-s1">
-            <blockquote>
-              {" "}
-              <p className="flow-text controlText">Controls </p>
-              <p className="flow-text controlText">
-                {" "}
-                Right Mouse = Pan Camera,{" "}
-              </p>
-              <p className="flow-text controlText">
-                Left Mouse = Orbit Camera,{" "}
-              </p>
-              <p className="flow-text controlText">Mouse Wheel = Zoom</p>{" "}
-            </blockquote>
-          </div>
+          <blockquote>
+            <p className="flow-text controlText">Controls </p>
+            <ul className="control-list">
+              <li>Right Mouse = Pan Camera</li>
+              <li>Left Mouse = Orbit Camera</li>
+              <li>Mouse Wheel = Zoom</li>
+            </ul>
+          </blockquote>
         </div>
 
         <div className="row scene">
           <div className="col s12 scene">
-            <div id="scene" className="scene">
-              {" "}
-            </div>
+            <div id="scene" className="scene" />
           </div>
         </div>
       </div>
