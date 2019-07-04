@@ -159,8 +159,8 @@ export class Cards extends Component {
     };
 
     return (
-      <div className="backgroundImage">
-        <div className="container">
+      <div>
+        <div className="container backgroundImage">
           <div className="row">
             <div className="col s10 offset-s1">
               <h1 className="headline card">CARDS</h1>
