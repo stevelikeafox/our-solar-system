@@ -159,7 +159,7 @@ export class Cards extends Component {
     };
 
     return (
-      <div>
+      <div className="backgroundImage">
         <div className="container">
           <div className="row">
             <div className="col s10 offset-s1">
