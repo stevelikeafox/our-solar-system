@@ -6,13 +6,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url(../img/solar-system-wallpaper-2.png) no-repeat center center
-    fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-attachment: fixed;
+}
+
+@media screen and (min-width: 601px) {
+  body {
+    background: url(../img/solar-system-wallpaper-2.png) no-repeat center center
+      fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+  }
 }
 
 .headline {
@@ -140,7 +145,7 @@ nav {
     margin-top: 54px;
   }
 
-  .backgroundImage {
+  body {
     background: url(../img/solar-system-wallpaper-mob.png) no-repeat center
       center fixed;
     -webkit-background-size: cover;
@@ -165,7 +170,7 @@ nav {
   h1 {
     font-size: 1.2rem;
   }
-  .backgroundImage {
+  body {
     background: url(../img/solar-system-wallpaper-mob.png) no-repeat center
       center fixed;
     -webkit-background-size: cover;
@@ -190,7 +195,7 @@ nav {
   h1 {
     font-size: 1.1rem;
   }
-  .backgroundImage {
+  body {
     background: url(../img/solar-system-wallpaper-mob.png) no-repeat center
       center fixed;
     -webkit-background-size: cover;
@@ -219,7 +224,7 @@ nav {
   .sidenav {
     margin-top: 55px;
   }
-  .backgroundImage {
+  body {
     background: url(../img/solar-system-wallpaper-mob.png) no-repeat center
       center fixed;
     -webkit-background-size: cover;
