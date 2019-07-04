@@ -80,6 +80,7 @@ p {
 }
 .control {
   position: absolute;
+  overflow: hidden;
 }
 
 blockquote {
