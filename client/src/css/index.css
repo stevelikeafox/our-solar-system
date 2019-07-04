@@ -6,6 +6,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: url(../img/solar-system-wallpaper-2.png) no-repeat center center
+    fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .headline {
@@ -132,6 +138,15 @@ nav {
   blockquote {
     margin-top: 54px;
   }
+
+  body {
+    background: url(../img/solar-system-wallpaper-mob.png) no-repeat center
+      center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -143,6 +158,14 @@ nav {
   h1 {
     font-size: 1.2rem;
   }
+  body {
+    background: url(../img/solar-system-wallpaper-mob.png) no-repeat center
+      center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
 }
 
 @media screen and (max-width: 360px) {
@@ -153,6 +176,14 @@ nav {
 
   h1 {
     font-size: 1.1rem;
+  }
+  body {
+    background: url(../img/solar-system-wallpaper-mob.png) no-repeat center
+      center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
   }
 }
 
@@ -168,5 +199,13 @@ nav {
 
   .sidenav {
     margin-top: 55px;
+  }
+  body {
+    background: url(../img/solar-system-wallpaper-mob.png) no-repeat center
+      center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
   }
 }

@@ -80,7 +80,7 @@ export class Login extends Component {
         {this.renderRedirect()}
         <div className="row">
           <div className="col s10 offset-s1">
-            <h1 className="headline">Login</h1>
+            <h1 className="headline card">Login</h1>
 
             <div className="card z-depth-3">
               <div className="user-content">
