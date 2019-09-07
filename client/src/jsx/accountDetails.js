@@ -19,7 +19,7 @@ export class AccountDetails extends Component {
   }
 
   componentDidMount(props) {
-    let User = "5cf0548041980d3790d3bb94";
+    let User = "5d73394c020dc900175d1f32";
 
     fetch(`/api/v1/users/${User}`)
       .then(res => res.json())
@@ -131,7 +131,7 @@ export class AccountDetails extends Component {
       <div className="account">
         <div className="container">
           <div className="row">
-            <div className="col s10 offset-s1">
+            <div className="col s6 offset-s3">
               <h1 className="headline card">Account Details</h1>
               {this.state.users.map(users => (
                 <div className="card z-depth-3" key={users._id}>

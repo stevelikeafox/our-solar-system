@@ -162,7 +162,7 @@ export class Cards extends Component {
       <div>
         <div className="container backgroundImage">
           <div className="row">
-            <div className="col s10 offset-s1 cardscroll">
+            <div className="col s6 offset-s3 cardscroll">
               <h1 className="headline card">CARDS</h1>
               {this.state.cards.map(cards => (
                 <div className="card z-depth-3" key={cards._id}>

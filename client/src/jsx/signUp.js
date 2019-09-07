@@ -92,7 +92,7 @@ export class Signup extends Component {
       <div className="container">
         {this.renderRedirect()}
         <div className="row">
-          <div className="col s10 offset-s1">
+          <div className="col s6 offset-s3">
             <h1 className="headline card">Sign Up</h1>
 
             <div className="card z-depth-3">

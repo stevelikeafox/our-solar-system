@@ -24,6 +24,8 @@ body {
   text-align: center;
   margin-top: 75px;
   font-family: "Orbitron", sans-serif;
+  padding: 10px;
+  height: 60px;
 }
 .toastError {
   background-color: red;
@@ -133,6 +135,15 @@ nav {
   nav .brand-logo {
     font-family: "Orbitron", sans-serif;
     font-size: 1.6rem;
+  }
+
+  .col {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .headline {
+    height: 35px;
   }
 
   h1 {

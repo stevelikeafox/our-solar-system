@@ -79,7 +79,7 @@ export class Login extends Component {
       <div className="container">
         {this.renderRedirect()}
         <div className="row">
-          <div className="col s10 offset-s1">
+          <div className="col s6 offset-s3">
             <h1 className="headline card">Login</h1>
 
             <div className="card z-depth-3">
@@ -120,6 +120,14 @@ export class Login extends Component {
                     </button>
                   </form>
                 </div>
+                <p>
+                  Login System Deactivated for Demo!
+                  <br />
+                </p>
+                <p>
+                  You are free to add, edit, delete cards and view on pages!
+                  <br />
+                </p>
                 <p>
                   Need an account? <Link to="/signup">Sign Up</Link>
                 </p>

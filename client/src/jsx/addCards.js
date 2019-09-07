@@ -103,7 +103,7 @@ export class AddCards extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col s10 offset-s1">
+          <div className="col s6 offset-s3">
             <h1 className="headline card">Add Cards</h1>
 
             <div className="card z-depth-3">
