@@ -25,7 +25,8 @@ body {
   margin-top: 75px;
   font-family: "Orbitron", sans-serif;
   padding: 10px;
-  height: 60px;
+  height: 40px;
+  font-size: 1.3rem;
 }
 .toastError {
   background-color: red;
@@ -131,6 +132,14 @@ nav {
   color: azure;
 }
 
+@media screen and (max-width: 826px) {
+  .headline {
+    font-family: "Orbitron", sans-serif;
+    font-size: 1.3rem;
+    height: 40px;
+    padding: 10px;
+  }
+}
 @media screen and (max-width: 616px) {
   nav .brand-logo {
     font-family: "Orbitron", sans-serif;
@@ -143,7 +152,8 @@ nav {
   }
 
   .headline {
-    height: 45px;
+    height: 40px;
+    padding: 10px;
   }
 
   h1 {
@@ -185,7 +195,7 @@ nav {
   }
 
   .headline {
-    height: 45px;
+    height: 40px;
   }
 
   h1 {
@@ -219,7 +229,7 @@ nav {
   }
 
   .headline {
-    height: 45px;
+    height: 40px;
   }
 
   h1 {
@@ -253,7 +263,7 @@ nav {
   }
 
   .headline {
-    height: 45px;
+    height: 40px;
   }
 
   h1 {
