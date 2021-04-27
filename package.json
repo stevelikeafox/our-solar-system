@@ -40,7 +40,7 @@
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "sessions": "0.0.2-7",
     "three-orbitcontrols": "^2.102.1"
   },
